@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="PlanForge: Synthesizing Planners from Natural Language with an LLM-Driven Architect–Builder–Runner Pipeline. Research showcase.">
+  <title>PlanForge: Synthesizing Planners from Natural Language</title>
+  
+  <!-- CSS Stylesheet (Cache Busted) -->
+  <link rel="stylesheet" href="style.css?v=20260810_v10">
+  
+  <!-- JavaScript Script (Cache Busted) -->
+  <script src="script.js?v=20260810_v10" defer></script>
+</head>
+<body>
+
+  <!-- Hero Header -->
+  <header class="hero" id="hero">
+    <div class="container">
+      <h1 class="hero-title">
+        PlanForge: Synthesizing Planners from Natural Language with an LLM-Driven Architect–Builder–Runner Pipeline
+      </h1>
+
+      <!-- Authors -->
+      <div class="authors-container">
+        <div class="authors-list">
+          <a class="author-link" href="#" target="_blank">Sarvesh Baskar<sup class="author-sup">1*</sup></a>
+          <a class="author-link" href="#" target="_blank">Raviteja Bommireddy<sup class="author-sup">2*</sup></a>
+          <a class="author-link" href="#" target="_blank">Saksham Kumar Sharma<sup class="author-sup">1</sup></a>
+          <a class="author-link" href="#" target="_blank">Harsha Kokel<sup class="author-sup">3</sup></a>
+          <a class="author-link" href="#" target="_blank">Manas Gaur<sup class="author-sup">1</sup></a>
+          <a class="author-link" href="#" target="_blank">Michael Katz<sup class="author-sup">3</sup></a>
+          <a class="author-link" href="#" target="_blank">Shirin Sohrabi<sup class="author-sup">3</sup></a>
+          <a class="author-link" href="#" target="_blank">Kavitha Srinivas<sup class="author-sup">3</sup></a>
+        </div>
+        
+        <div class="affiliations-list">
+          <span><sup class="author-sup">1</sup>University of Maryland, Baltimore County, USA</span>
+          <span><sup class="author-sup">2</sup>IIITDM, India</span>
+          <span><sup class="author-sup">3</sup>IBM Research, USA</span>
+        </div>
+        <p class="equal-contrib"><sup>*</sup> Equal contribution</p>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="hero-btn-group">
+        <a href="https://arxiv.org" target="_blank" class="btn btn-arxiv">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
+          arXiv Paper <span class="badge-tag">PDF</span>
+        </a>
+        
+        <a href="https://github.com/PlanForge-ABR/PlanForge_ABR_pipeline" target="_blank" class="btn btn-github">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+          Code <span class="badge-tag">GitHub</span>
+        </a>
+
+        <a href="#bibtex" class="btn btn-outline">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg>
+          BibTeX
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Sticky Navigation Bar -->
+  <nav class="sticky-nav">
+    <div class="nav-container">
+      <a href="#hero" class="nav-link active">Overview</a>
+      <a href="#abstract" class="nav-link">Abstract</a>
+      <a href="#paradigm" class="nav-link">ABR Paradigm</a>
+      <a href="#paradigms-comparison" class="nav-link">Paradigm Comparison</a>
+      <a href="#results" class="nav-link">Empirical Results</a>
+      <a href="#economics" class="nav-link">Cost Economics</a>
+      <a href="#analysis" class="nav-link">In-Depth Analysis</a>
+      <a href="#bibtex" class="nav-link">BibTeX</a>
+    </div>
+  </nav>
+
+  <main class="container">
+
+    <!-- ABR Pipeline Diagram (Before Abstract) -->
+    <div class="card figure-card" style="margin-top: 32px;">
+      <div class="figure-container">
+        <img src="assets/images/fig-planforge-full-pipeline.png" alt="Overview of PlanForge ABR framework" class="figure-img">
+        <p class="figure-caption">
+          <strong>PlanForge Framework Overview.</strong> Given a natural language domain description and development instances, the Architect formulates the state schema and solver blueprint, the Builder synthesizes executable Python code with repair feedback, and the Runner executes the compiled program deterministically across unseen instances.
+        </p>
+      </div>
+    </div>
+
+    <!-- Abstract Section -->
+    <section class="section" id="abstract">
+      <div class="section-header">
+        <h2 class="section-title">Abstract</h2>
+        <p class="section-desc">Synthesizing reusable domain planners directly from natural language</p>
+      </div>
+      
+      <div class="card">
+        <p style="font-size: 1.05rem; line-height: 1.75; color: var(--text-main); margin-bottom: 18px;">
+          Large language models (LLMs) are increasingly used to solve multi-step planning problems expressed in natural language. A common approach asks a model to directly produce a sequence of actions or a final plan from a problem description. While such outputs can appear coherent, fluency alone does not ensure that they satisfy constraints, respect transition dynamics, or remain valid as complexity grows.
+        </p>
+        <p style="font-size: 1.05rem; line-height: 1.75; color: var(--text-main);">
+          We introduce <strong>PlanForge</strong>, an <strong>Architect–Builder–Runner (ABR)</strong> framework for synthesizing planners from natural-language domains. Given a domain description and a small set of development examples, PlanForge constructs a planner that can be applied to new instances. The <em>Architect</em> designs the planner blueprint: it specifies what to extract from language, defines the function signatures, and selects an appropriate solving strategy. The <em>Builder</em> turns the blueprint into a procedural program, and the deterministic <em>Runner</em> executes the program and verifies its outputs. The result is not just a solution to a single instance, but a reusable planner for a class of problems. We demonstrate that PlanForge achieves <strong>100% success rate</strong> on NaturalPlan and StructureSAT and <strong>92.69% VAL-verified accuracy</strong> on Plan Gen without test-time API query costs.
+        </p>
+      </div>
+    </section>
+
+    <!-- Key Metrics Banner (Below Abstract) -->
+    <div class="stats-banner">
+      <div class="stat-box">
+        <div class="stat-value">100%</div>
+        <div class="stat-label">NaturalPlan Success</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-value">100%</div>
+        <div class="stat-label">StructureSAT Success</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-value">92.69%</div>
+        <div class="stat-label">Plan Gen Accuracy</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-value">$0.00</div>
+        <div class="stat-label">Test-Time API Cost</div>
+      </div>
+    </div>
+
+    <!-- The ABR Paradigm Section -->
+    <section class="section" id="paradigm">
+      <div class="section-header">
+        <h2 class="section-title">The Architect–Builder–Runner (ABR) Paradigm</h2>
+        <p class="section-desc">Decoupling state representation, code synthesis, and deterministic local search</p>
+      </div>
+
+      <div class="grid-3">
+        <!-- Architect -->
+        <div class="feature-card">
+          <div class="feature-icon">📐</div>
+          <h3 class="feature-title">1. The Architect</h3>
+          <p class="feature-desc">
+            Analyzes natural-language domain descriptions to discover state-space representations, define input/output function signatures, and select the optimal solving strategy (e.g. state-space search vs constraint satisfaction).
+          </p>
+        </div>
+
+        <!-- Builder -->
+        <div class="feature-card">
+          <div class="feature-icon">🛠️</div>
+          <h3 class="feature-title">2. The Builder</h3>
+          <p class="feature-desc">
+            Translates the blueprint into executable procedural Python programs. Uses development-gate execution feedback to repair state-transition code, condition checks, and formatting errors.
+          </p>
+        </div>
+
+        <!-- Runner -->
+        <div class="feature-card">
+          <div class="feature-icon">⚡</div>
+          <h3 class="feature-title">3. The Runner</h3>
+          <p class="feature-desc">
+            Executes the compiled solver locally on CPU. Provides deterministic execution without LLM hallucination and achieves <strong>$0.00 marginal inference cost</strong> on all test instances.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Paradigm Comparison Matrix -->
+    <section class="section" id="paradigms-comparison">
+      <div class="section-header">
+        <h2 class="section-title">Where Does PlanForge Stand?</h2>
+        <p class="section-desc">Comparing autonomy, representation discovery, and solver reusability across planning paradigms</p>
+      </div>
+
+      <div class="card">
+        <div class="table-wrapper">
+          <table class="custom-table">
+            <thead>
+              <tr>
+                <th>Category</th>
+                <th>Feature / Property</th>
+                <th>Direct LLM (CoT)</th>
+                <th>LLM+P</th>
+                <th>ToS</th>
+                <th>AutoToS</th>
+                <th>SCOPE</th>
+                <th>Gen. Planning</th>
+                <th style="background: #EFF6FF;">PlanForge (Ours)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td rowspan="3" style="font-weight: 700;">Input & Output</td>
+                <td>Natural language input</td>
+                <td>✓</td><td>✓</td><td>✗</td><td>✗</td><td>✓</td><td>✗</td>
+                <td class="highlight-row">✓</td>
+              </tr>
+              <tr>
+                <td>Execution-verified output</td>
+                <td>✗</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td>
+                <td class="highlight-row">✓</td>
+              </tr>
+              <tr>
+                <td>Certified no-plan verdict</td>
+                <td>✗</td><td>✓</td><td>✓</td><td>✓</td><td>✗</td><td>✗</td>
+                <td class="highlight-row">✓</td>
+              </tr>
+              <tr>
+                <td rowspan="4" style="font-weight: 700;">Blueprint Autonomy</td>
+                <td>No human-curated state schema</td>
+                <td>✓</td><td>✗</td><td>✗</td><td>✗</td><td>✗</td><td>✗</td>
+                <td class="highlight-row">✓</td>
+              </tr>
+              <tr>
+                <td>No predefined function signatures</td>
+                <td>✓</td><td>✗</td><td>✗</td><td>✗</td><td>✗</td><td>✗</td>
+                <td class="highlight-row">✓</td>
+              </tr>
+              <tr>
+                <td>No fixed search/solver algorithm</td>
+                <td>✓</td><td>✗</td><td>✗</td><td>✗</td><td>✗</td><td>✗</td>
+                <td class="highlight-row">✓</td>
+              </tr>
+              <tr>
+                <td>Autonomous blueprint synthesis</td>
+                <td>✗</td><td>✗</td><td>✗</td><td>✗</td><td>✗</td><td>✗</td>
+                <td class="highlight-row">✓</td>
+              </tr>
+              <tr>
+                <td rowspan="4" style="font-weight: 700;">Generalization</td>
+                <td>Domain-level reusable planner</td>
+                <td>✗</td><td>~</td><td>✓</td><td>✓</td><td>✗</td><td>✓</td>
+                <td class="highlight-row">✓</td>
+              </tr>
+              <tr>
+                <td>Classical transition system planning</td>
+                <td>✗</td><td>✓</td><td>✓</td><td>✓</td><td>✗</td><td>✓</td>
+                <td class="highlight-row">✓</td>
+              </tr>
+              <tr>
+                <td>Constraint/scheduling planning</td>
+                <td>~</td><td>✗</td><td>✗</td><td>✗</td><td>✓</td><td>✗</td>
+                <td class="highlight-row">✓</td>
+              </tr>
+              <tr>
+                <td>Scalable to novel / unstructured tasks</td>
+                <td>✓</td><td>✗</td><td>✗</td><td>✗</td><td>✗</td><td>✗</td>
+                <td class="highlight-row">✓</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p style="margin-top: 12px; font-size: 0.85rem; color: var(--text-muted);">
+          <strong>Paradigm Matrix.</strong> PlanForge is the only framework operating directly on natural language to autonomously discover state schemas and synthesize reusable domain planners without human-authored PDDL blueprints.
+        </p>
+      </div>
+    </section>
+
+    <!-- Empirical Performance & Benchmark Results -->
+    <section class="section" id="results">
+      <div class="section-header">
+        <h2 class="section-title">Empirical Benchmark Evaluations</h2>
+        <p class="section-desc">Select a benchmark category below to explore domain breakdowns and accuracy scaling</p>
+      </div>
+
+      <div class="tab-container">
+        <!-- Interactive Pill Button Selector for Benchmark Views -->
+        <div class="pill-tab-buttons">
+          <button class="tab-btn pill-btn active" data-tab="res-overall">Overall Benchmark Summary</button>
+          <button class="tab-btn pill-btn" data-tab="res-plangen">Plan Gen (Long Horizon Accuracy)</button>
+          <button class="tab-btn pill-btn" data-tab="res-naturalplan">NaturalPlan (Travel & Scheduling)</button>
+          <button class="tab-btn pill-btn" data-tab="res-structuresat">StructureSAT (Graph Reasoning)</button>
+        </div>
+
+        <!-- Overall Summary Tab -->
+        <div class="tab-content active" id="res-overall">
+          <div class="card">
+            <h3 style="margin-bottom: 8px; font-size: 1.2rem; font-weight: 800; color: #111827;">Overall Benchmark Performance & API Cost</h3>
+            <p style="color: var(--text-muted); font-size: 0.875rem; margin-bottom: 16px;">
+              Performance is measured using success rate (%) for NaturalPlan and StructureSAT, and accuracy (%) for Plan Gen.
+            </p>
+
+            <div class="table-wrapper">
+              <table class="custom-table">
+                <thead>
+                  <tr>
+                    <th>Metric Type</th>
+                    <th>Method</th>
+                    <th>NaturalPlan Success (%)</th>
+                    <th>Plan Gen Accuracy (%)</th>
+                    <th>StructureSAT Success (%)</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td rowspan="3" style="font-weight: 700;">Performance</td>
+                    <td>CoT</td>
+                    <td>86.10%</td>
+                    <td>0.63%</td>
+                    <td>30.37%</td>
+                  </tr>
+                  <tr>
+                    <td>SCOPE</td>
+                    <td>96.00%</td>
+                    <td>4.80%</td>
+                    <td>99.70%</td>
+                  </tr>
+                  <tr class="highlight-row">
+                    <td><strong>PlanForge (Ours)</strong></td>
+                    <td><span class="badge-success">100.00%</span></td>
+                    <td><span class="badge-success">92.69%</span></td>
+                    <td><span class="badge-success">100.00%</span></td>
+                  </tr>
+                  <tr>
+                    <td rowspan="3" style="font-weight: 700;">API Cost ($)</td>
+                    <td>CoT</td>
+                    <td>$1.89</td>
+                    <td>$4.03</td>
+                    <td>$39.96</td>
+                  </tr>
+                  <tr>
+                    <td>SCOPE</td>
+                    <td>$3.44</td>
+                    <td>$3.66</td>
+                    <td>$90.91</td>
+                  </tr>
+                  <tr class="highlight-row">
+                    <td><strong>PlanForge (Ours)</strong></td>
+                    <td>$3.21</td>
+                    <td>$16.77 (Development)</td>
+                    <td><strong>$6.10</strong></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- Plan Gen Tab -->
+        <div class="tab-content" id="res-plangen">
+          <div class="card">
+            <h3 style="margin-bottom: 12px; font-size: 1.2rem; font-weight: 800; color: #111827;">Plan Gen: Long-Horizon Accuracy Scaling</h3>
+            
+            <div class="figure-container" style="margin-bottom: 20px;">
+              <img src="assets/images/fig-Plan_generation_ACPBench.png" alt="Plan Gen Accuracy Across Length Categories" class="figure-img">
+              <p class="figure-caption">
+                <strong>VAL-Verified Plan Accuracy across Plan Horizons.</strong> PlanForge maintains near-perfect accuracy on Medium (11–30 steps), Long (31–100 steps), and Very Long (100+ steps) plan horizons, demonstrating that plan length is not a bottleneck when search is offloaded to a synthesized program.
+              </p>
+            </div>
+
+            <h4 style="margin-bottom: 10px; font-size: 0.95rem; color: #111827;">Domain-Wise Accuracy (%) across 15 Classical Planning Domains</h4>
+            <div class="table-wrapper">
+              <table class="custom-table">
+                <thead>
+                  <tr>
+                    <th>Domain Name</th>
+                    <th>CoT</th>
+                    <th>SCOPE</th>
+                    <th>PlanForge (Ours)</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><td>Alfworld</td><td>0.00%</td><td>0.00%</td><td style="font-weight: 700;">68.75%</td></tr>
+                  <tr><td>Blocksworld</td><td>0.00%</td><td>3.12%</td><td style="font-weight: 700; color: #03543F;">100.00%</td></tr>
+                  <tr><td>Depot</td><td>0.00%</td><td>3.12%</td><td style="font-weight: 700; color: #03543F;">100.00%</td></tr>
+                  <tr><td>Ferry</td><td>0.00%</td><td>3.12%</td><td style="font-weight: 700; color: #03543F;">100.00%</td></tr>
+                  <tr><td>Floortile</td><td>0.00%</td><td>6.25%</td><td style="font-weight: 700; color: #03543F;">100.00%</td></tr>
+                  <tr><td>Frogs Jumping</td><td>0.00%</td><td>0.00%</td><td style="font-weight: 700; color: #03543F;">100.00%</td></tr>
+                  <tr><td>Goldminer</td><td>0.00%</td><td>3.12%</td><td style="font-weight: 700;">93.75%</td></tr>
+                  <tr><td>Grid</td><td>0.00%</td><td>15.62%</td><td style="font-weight: 700;">96.88%</td></tr>
+                  <tr><td>Grippers</td><td>0.00%</td><td>3.12%</td><td style="font-weight: 700; color: #03543F;">100.00%</td></tr>
+                  <tr><td>Hanoi</td><td>0.00%</td><td>3.12%</td><td style="font-weight: 700;">34.38%</td></tr>
+                  <tr><td>Logistics</td><td>3.12%</td><td>3.12%</td><td style="font-weight: 700; color: #03543F;">100.00%</td></tr>
+                  <tr><td>Rovers</td><td>0.00%</td><td>3.12%</td><td style="font-weight: 700; color: #03543F;">100.00%</td></tr>
+                  <tr><td>Satellite</td><td>6.25%</td><td>3.12%</td><td style="font-weight: 700;">96.88%</td></tr>
+                  <tr><td>Swap</td><td>0.00%</td><td>3.12%</td><td style="font-weight: 700; color: #03543F;">100.00%</td></tr>
+                  <tr><td>Visitall</td><td>0.00%</td><td>18.75%</td><td style="font-weight: 700; color: #03543F;">100.00%</td></tr>
+                  <tr class="highlight-row">
+                    <td><strong>Plan Gen Overall</strong></td>
+                    <td>0.63%</td>
+                    <td>4.80%</td>
+                    <td><span class="badge-success">92.69%</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- NaturalPlan Tab -->
+        <div class="tab-content" id="res-naturalplan">
+          <div class="card">
+            <h3 style="margin-bottom: 8px; font-size: 1.2rem; font-weight: 800; color: #111827;">NaturalPlan: Travel & Calendar Reasoning</h3>
+            <p style="color: var(--text-muted); font-size: 0.875rem; margin-bottom: 16px;">
+              Comparison of success rate (%) on Trip Planning, Meeting Planning, and Calendar Scheduling.
+            </p>
+
+            <div class="table-wrapper">
+              <table class="custom-table">
+                <thead>
+                  <tr>
+                    <th>Benchmark Sub-Domain</th>
+                    <th>CoT</th>
+                    <th>SCOPE</th>
+                    <th>PlanForge (Ours)</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><td>Trip Planning</td><td>84.60%</td><td>100.00%</td><td style="font-weight: 700; color: #03543F;">100.00%</td></tr>
+                  <tr><td>Meeting Planning</td><td>93.20%</td><td>97.33%</td><td style="font-weight: 700; color: #03543F;">100.00%</td></tr>
+                  <tr><td>Calendar Scheduling</td><td>80.51%</td><td>90.67%</td><td style="font-weight: 700; color: #03543F;">100.00%</td></tr>
+                  <tr class="highlight-row">
+                    <td><strong>NaturalPlan Overall</strong></td>
+                    <td>86.10%</td>
+                    <td>96.00%</td>
+                    <td><span class="badge-success">100.00%</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- StructureSAT Tab -->
+        <div class="tab-content" id="res-structuresat">
+          <div class="card">
+            <h3 style="margin-bottom: 8px; font-size: 1.2rem; font-weight: 800; color: #111827;">StructureSAT: Graph & Satisfiability Reasoning</h3>
+            <p style="color: var(--text-muted); font-size: 0.875rem; margin-bottom: 16px;">
+              Success rate across 9 structural SAT domain formulations.
+            </p>
+
+            <div class="table-wrapper">
+              <table class="custom-table">
+                <thead>
+                  <tr>
+                    <th>Domain</th>
+                    <th>CoT</th>
+                    <th>SCOPE</th>
+                    <th>PlanForge (Ours)</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><td>3-sat</td><td>2.67%</td><td>100.00%</td><td style="font-weight: 700; color: #03543F;">100.00%</td></tr>
+                  <tr><td>automorphism</td><td>6.67%</td><td>100.00%</td><td style="font-weight: 700; color: #03543F;">100.00%</td></tr>
+                  <tr><td>clique-coloring</td><td>0.00%</td><td>98.00%</td><td style="font-weight: 700; color: #03543F;">100.00%</td></tr>
+                  <tr><td>k-clique</td><td>22.67%</td><td>100.00%</td><td style="font-weight: 700; color: #03543F;">100.00%</td></tr>
+                  <tr><td>k-colorability</td><td>78.67%</td><td>100.00%</td><td style="font-weight: 700; color: #03543F;">100.00%</td></tr>
+                  <tr><td>subgraph-isomorphism</td><td>4.00%</td><td>100.00%</td><td style="font-weight: 700; color: #03543F;">100.00%</td></tr>
+                  <tr><td>k-domset</td><td>93.33%</td><td>99.33%</td><td style="font-weight: 700; color: #03543F;">100.00%</td></tr>
+                  <tr><td>k-vertex-cover</td><td>62.67%</td><td>100.00%</td><td style="font-weight: 700; color: #03543F;">100.00%</td></tr>
+                  <tr><td>pigeonhole</td><td>2.67%</td><td>100.00%</td><td style="font-weight: 700; color: #03543F;">100.00%</td></tr>
+                  <tr class="highlight-row">
+                    <td><strong>StructureSAT Overall</strong></td>
+                    <td>30.37%</td>
+                    <td>99.70%</td>
+                    <td><span class="badge-success">100.00%</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Economic Efficiency & Cost Amortization -->
+    <section class="section" id="economics">
+      <div class="section-header">
+        <h2 class="section-title">Zero Marginal Test-Time Cost</h2>
+        <p class="section-desc">Flat $O(1)$ developer cost vs. linear $O(N)$ per-query LLM token costs</p>
+      </div>
+
+      <div class="card">
+        <div class="figure-container">
+          <img src="assets/images/fig-planGen-cost graph.png" alt="Cumulative API Cost vs Evaluated Test Instances" class="figure-img">
+          <p class="figure-caption">
+            <strong>Cost Amortization Curve.</strong> Cumulative API cost (USD) versus the number of evaluated test instances. PlanForge incurs a one-time development cost during the ABR phase and zero test-time API queries, so its total cost remains constant ($O(1)$). In contrast, CoT and SCOPE query the model for each instance, causing their costs to increase linearly ($O(N)$).
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- In-Depth Analytical Insights -->
+    <section class="section" id="analysis">
+      <div class="section-header">
+        <h2 class="section-title">In-Depth Analytical Insights</h2>
+        <p class="section-desc">Select an analysis topic below to examine specific paradigm behaviors</p>
+      </div>
+
+      <div class="tab-container">
+        <!-- Pill Selector for Analysis Views -->
+        <div class="pill-tab-buttons">
+          <button class="tab-btn pill-btn active" data-tab="ana-prediction">Prediction vs. Witness Synthesis</button>
+          <button class="tab-btn pill-btn" data-tab="ana-autonomous">Guided vs. Autonomous Discovery</button>
+        </div>
+
+        <!-- Prediction vs Synthesis Tab -->
+        <div class="tab-content active" id="ana-prediction">
+          <div class="card">
+            <h3 style="margin-bottom: 8px; font-size: 1.2rem; font-weight: 800; color: #111827;">Solution-Existence Prediction vs. Witness Plan Synthesis</h3>
+            <p style="color: var(--text-muted); font-size: 0.875rem; margin-bottom: 16px;">
+              Comparing plan-existence prediction accuracy against actual plan-generation accuracy.
+            </p>
+
+            <div class="table-wrapper">
+              <table class="custom-table">
+                <thead>
+                  <tr>
+                    <th>Benchmark</th>
+                    <th>Evaluation Metric</th>
+                    <th>CoT</th>
+                    <th>SCOPE</th>
+                    <th>PlanForge (Ours)</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td rowspan="2" style="font-weight: 700;">Plan Gen</td>
+                    <td>Plan-existence accuracy</td>
+                    <td>98.89%</td>
+                    <td>11.31%</td>
+                    <td style="font-weight: 700;">98.89%</td>
+                  </tr>
+                  <tr>
+                    <td>Plan-generation accuracy</td>
+                    <td>13.78%</td>
+                    <td>5.37%</td>
+                    <td><span class="badge-success">92.69%</span></td>
+                  </tr>
+                  <tr>
+                    <td rowspan="2" style="font-weight: 700;">StructureSAT</td>
+                    <td>SAT/UNSAT prediction accuracy</td>
+                    <td>75.26%</td>
+                    <td>99.70%</td>
+                    <td style="font-weight: 700; color: #03543F;">100.00%</td>
+                  </tr>
+                  <tr class="highlight-row">
+                    <td>Success rate</td>
+                    <td>30.37%</td>
+                    <td>99.70%</td>
+                    <td><span class="badge-success">100.00%</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p style="margin-top: 12px; font-size: 0.85rem; color: var(--text-muted);">
+              Predicting solution existence overestimates actual plan generation capabilities for baselines, whereas PlanForge produces verified executable witnesses.
+            </p>
+          </div>
+        </div>
+
+        <!-- Guided vs Autonomous Tab -->
+        <div class="tab-content" id="ana-autonomous">
+          <div class="card">
+            <h3 style="margin-bottom: 8px; font-size: 1.2rem; font-weight: 800; color: #111827;">Human-Guided vs. Fully Autonomous PlanForge</h3>
+            <p style="color: var(--text-muted); font-size: 0.875rem; margin-bottom: 16px;">
+              Accuracy (%) on Plan Gen Easy under the short-plan setting (0–2 actions).
+            </p>
+
+            <div class="table-wrapper">
+              <table class="custom-table">
+                <thead>
+                  <tr>
+                    <th>Synthesis Setting</th>
+                    <th>Guided PlanForge Accuracy (%)</th>
+                    <th>Autonomous PlanForge Accuracy (%)</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Plan Gen Easy (Short Plans)</td>
+                    <td>91.10%</td>
+                    <td><span class="badge-success">100.00%</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p style="margin-top: 12px; font-size: 0.85rem; color: var(--text-muted);">
+              Autonomous PlanForge discovers state-space representations without human blueprints, outperforming human-guided specifications across all 15 domains.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BibTeX Section -->
+    <section class="section" id="bibtex">
+      <div class="section-header">
+        <h2 class="section-title">Citation</h2>
+        <p class="section-desc">If you find PlanForge useful for your research, please consider citing our paper:</p>
+      </div>
+
+      <div class="card">
+        <div class="code-block-wrapper">
+          <div class="code-header">
+            <div class="code-lang">BibTeX</div>
+            <button class="copy-btn" data-copy-target="bibtex-content">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+              Copy BibTeX
+            </button>
+          </div>
+          <pre><code id="bibtex-content">@article{baskar2026planforge,
+  title     = {PlanForge: Synthesizing Planners from Natural Language with an LLM-Driven Architect--Builder--Runner Pipeline},
+  author    = {Baskar, Sarvesh and Bommireddy, Raviteja and Sharma, Saksham Kumar and Kokel, Harsha and Gaur, Manas and Katz, Michael and Sohrabi, Shirin and Srinivas, Kavitha},
+  journal   = {arXiv preprint},
+  year      = {2026}
+}</code></pre>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-links">
+        <a href="https://github.com/PlanForge-ABR/PlanForge_ABR_pipeline" target="_blank" class="footer-link">Code Repository (GitHub)</a>
+        <a href="#bibtex" class="footer-link">BibTeX Citation</a>
+      </div>
+      <p>© 2026 PlanForge Team. All rights reserved.</p>
+    </div>
+  </footer>
+
+</body>
+</html>
