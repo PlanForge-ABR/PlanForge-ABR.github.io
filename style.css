@@ -143,12 +143,12 @@ body {
   border: 1px solid transparent;
 }
 
-.btn-arxiv {
+.btn-paper {
   background: #B91C1C;
   color: #FFFFFF;
 }
 
-.btn-arxiv:hover {
+.btn-paper:hover {
   background: #991B1B;
 }
 

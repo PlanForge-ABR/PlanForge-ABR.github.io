@@ -7,7 +7,7 @@
   <title>PlanForge: Synthesizing Planners from Natural Language</title>
   
   <!-- CSS Stylesheet (Cache Busted) -->
-  <link rel="stylesheet" href="style.css?v=20260810_v10">
+  <link rel="stylesheet" href="style.css?v=20261109">
   
   <!-- JavaScript Script (Cache Busted) -->
   <script src="script.js?v=20260810_v10" defer></script>
@@ -44,9 +44,9 @@
 
       <!-- Action Buttons -->
       <div class="hero-btn-group">
-        <a href="https://arxiv.org" target="_blank" class="btn btn-arxiv">
+        <a href="https://openreview.net/forum?id=Jx6FT7aaMZ" target="_blank" rel="noopener noreferrer" class="btn btn-paper">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
-          arXiv Paper <span class="badge-tag">PDF</span>
+          Paper <span class="badge-tag">OpenReview</span>
         </a>
         
         <a href="https://github.com/PlanForge-ABR/PlanForge_ABR_pipeline" target="_blank" class="btn btn-github">
@@ -100,7 +100,7 @@
           Large language models (LLMs) are increasingly used to solve multi-step planning problems expressed in natural language. A common approach asks a model to directly produce a sequence of actions or a final plan from a problem description. While such outputs can appear coherent, fluency alone does not ensure that they satisfy constraints, respect transition dynamics, or remain valid as complexity grows.
         </p>
         <p style="font-size: 1.05rem; line-height: 1.75; color: var(--text-main);">
-          We introduce <strong>PlanForge</strong>, an <strong>Architect–Builder–Runner (ABR)</strong> framework for synthesizing planners from natural-language domains. Given a domain description and a small set of development examples, PlanForge constructs a planner that can be applied to new instances. The <em>Architect</em> designs the planner blueprint: it specifies what to extract from language, defines the function signatures, and selects an appropriate solving strategy. The <em>Builder</em> turns the blueprint into a procedural program, and the deterministic <em>Runner</em> executes the program and verifies its outputs. The result is not just a solution to a single instance, but a reusable planner for a class of problems. We demonstrate that PlanForge achieves <strong>100% success rate</strong> on NaturalPlan and StructureSAT and <strong>92.69% VAL-verified accuracy</strong> on Plan Gen without test-time API query costs.
+          We introduce <strong>PlanForge</strong>, an <strong>Architect–Builder–Runner (ABR)</strong> framework for synthesizing planners from natural-language domains. Given a domain description and a small set of development examples, PlanForge constructs a planner that can be applied to new instances. The <em>Architect</em> designs the planner blueprint: it specifies what to extract from language, defines the function signatures, and selects an appropriate solving strategy. The <em>Builder</em> turns the blueprint into a procedural program, and the deterministic <em>Runner</em> executes the program and verifies its outputs. The result is not just a solution to a single instance, but a reusable planner for a class of problems. We demonstrate that PlanForge achieves <strong>100% success rate</strong> on NaturalPlan and StructureSAT and <strong>92.41% VAL-verified accuracy</strong> on Plan Gen without test-time API query costs.
         </p>
       </div>
     </section>
@@ -116,7 +116,7 @@
         <div class="stat-label">StructureSAT Success</div>
       </div>
       <div class="stat-box">
-        <div class="stat-value">92.69%</div>
+        <div class="stat-value">92.41%</div>
         <div class="stat-label">Plan Gen Accuracy</div>
       </div>
       <div class="stat-box">
@@ -138,7 +138,7 @@
           <div class="feature-icon">📐</div>
           <h3 class="feature-title">1. The Architect</h3>
           <p class="feature-desc">
-            Analyzes natural-language domain descriptions to discover state-space representations, define input/output function signatures, and select the optimal solving strategy (e.g. state-space search vs constraint satisfaction).
+            Analyzes natural-language domain descriptions to discover state-space representations, define input/output function signatures, and select a solving strategy (e.g. state-space search vs constraint satisfaction).
           </p>
         </div>
 
@@ -156,7 +156,7 @@
           <div class="feature-icon">⚡</div>
           <h3 class="feature-title">3. The Runner</h3>
           <p class="feature-desc">
-            Executes the compiled solver locally on CPU. Provides deterministic execution without LLM hallucination and achieves <strong>$0.00 marginal inference cost</strong> on all test instances.
+            Executes the compiled solver locally on CPU without test-time LLM calls, with outputs checked by external validators. Additional test-time LLM API cost is <strong>$0.00 per instance</strong>.
           </p>
         </div>
       </div>
@@ -189,7 +189,7 @@
               <tr>
                 <td rowspan="3" style="font-weight: 700;">Input & Output</td>
                 <td>Natural language input</td>
-                <td>✓</td><td>✓</td><td>✗</td><td>✗</td><td>✓</td><td>✗</td>
+                <td>✓</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td><td>✗</td>
                 <td class="highlight-row">✓</td>
               </tr>
               <tr>
@@ -198,7 +198,7 @@
                 <td class="highlight-row">✓</td>
               </tr>
               <tr>
-                <td>Certified no-plan verdict</td>
+                <td>Explicit no-plan verdict</td>
                 <td>✗</td><td>✓</td><td>✓</td><td>✓</td><td>✗</td><td>✗</td>
                 <td class="highlight-row">✓</td>
               </tr>
@@ -224,9 +224,9 @@
                 <td class="highlight-row">✓</td>
               </tr>
               <tr>
-                <td rowspan="4" style="font-weight: 700;">Generalization</td>
+                <td rowspan="3" style="font-weight: 700;">Generalization</td>
                 <td>Domain-level reusable planner</td>
-                <td>✗</td><td>~</td><td>✓</td><td>✓</td><td>✗</td><td>✓</td>
+                <td>✗</td><td>~</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td>
                 <td class="highlight-row">✓</td>
               </tr>
               <tr>
@@ -239,16 +239,11 @@
                 <td>~</td><td>✗</td><td>✗</td><td>✗</td><td>✓</td><td>✗</td>
                 <td class="highlight-row">✓</td>
               </tr>
-              <tr>
-                <td>Scalable to novel / unstructured tasks</td>
-                <td>✓</td><td>✗</td><td>✗</td><td>✗</td><td>✗</td><td>✗</td>
-                <td class="highlight-row">✓</td>
-              </tr>
             </tbody>
           </table>
         </div>
         <p style="margin-top: 12px; font-size: 0.85rem; color: var(--text-muted);">
-          <strong>Paradigm Matrix.</strong> PlanForge is the only framework operating directly on natural language to autonomously discover state schemas and synthesize reusable domain planners without human-authored PDDL blueprints.
+          <strong>Paradigm Matrix (Table 1).</strong> PlanForge operates directly on natural-language input to autonomously synthesize a reusable domain-level planner without human-curated blueprints.
         </p>
       </div>
     </section>
@@ -292,20 +287,20 @@
                   <tr>
                     <td rowspan="3" style="font-weight: 700;">Performance</td>
                     <td>CoT</td>
-                    <td>86.10%</td>
-                    <td>0.63%</td>
+                    <td>86.22%</td>
+                    <td>21.30%</td>
                     <td>30.37%</td>
                   </tr>
                   <tr>
                     <td>SCOPE</td>
                     <td>96.00%</td>
-                    <td>4.80%</td>
+                    <td>15.74%</td>
                     <td>99.70%</td>
                   </tr>
                   <tr class="highlight-row">
                     <td><strong>PlanForge (Ours)</strong></td>
                     <td><span class="badge-success">100.00%</span></td>
-                    <td><span class="badge-success">92.69%</span></td>
+                    <td><span class="badge-success">92.41%</span></td>
                     <td><span class="badge-success">100.00%</span></td>
                   </tr>
                   <tr>
@@ -341,7 +336,7 @@
             <div class="figure-container" style="margin-bottom: 20px;">
               <img src="assets/images/fig-Plan_generation_ACPBench.png" alt="Plan Gen Accuracy Across Length Categories" class="figure-img">
               <p class="figure-caption">
-                <strong>VAL-Verified Plan Accuracy across Plan Horizons.</strong> PlanForge maintains near-perfect accuracy on Medium (11–30 steps), Long (31–100 steps), and Very Long (100+ steps) plan horizons, demonstrating that plan length is not a bottleneck when search is offloaded to a synthesized program.
+                <strong>Plan Gen Accuracy across Plan Horizons (Figure 12).</strong> Tables 10–11 report 100.00% accuracy for Medium (11–30 steps), Long (31–100 steps), and Very Long (100+ steps) categories. Short-plan (1–10 steps) accuracy is 85.04%; accuracy on unreachable instances, which require an explicit no-plan verdict, is 90.16%.
               </p>
             </div>
 
@@ -357,26 +352,26 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr><td>Alfworld</td><td>0.00%</td><td>0.00%</td><td style="font-weight: 700;">68.75%</td></tr>
-                  <tr><td>Blocksworld</td><td>0.00%</td><td>3.12%</td><td style="font-weight: 700; color: #03543F;">100.00%</td></tr>
-                  <tr><td>Depot</td><td>0.00%</td><td>3.12%</td><td style="font-weight: 700; color: #03543F;">100.00%</td></tr>
-                  <tr><td>Ferry</td><td>0.00%</td><td>3.12%</td><td style="font-weight: 700; color: #03543F;">100.00%</td></tr>
-                  <tr><td>Floortile</td><td>0.00%</td><td>6.25%</td><td style="font-weight: 700; color: #03543F;">100.00%</td></tr>
-                  <tr><td>Frogs Jumping</td><td>0.00%</td><td>0.00%</td><td style="font-weight: 700; color: #03543F;">100.00%</td></tr>
-                  <tr><td>Goldminer</td><td>0.00%</td><td>3.12%</td><td style="font-weight: 700;">93.75%</td></tr>
-                  <tr><td>Grid</td><td>0.00%</td><td>15.62%</td><td style="font-weight: 700;">96.88%</td></tr>
-                  <tr><td>Grippers</td><td>0.00%</td><td>3.12%</td><td style="font-weight: 700; color: #03543F;">100.00%</td></tr>
-                  <tr><td>Hanoi</td><td>0.00%</td><td>3.12%</td><td style="font-weight: 700;">34.38%</td></tr>
-                  <tr><td>Logistics</td><td>3.12%</td><td>3.12%</td><td style="font-weight: 700; color: #03543F;">100.00%</td></tr>
-                  <tr><td>Rovers</td><td>0.00%</td><td>3.12%</td><td style="font-weight: 700; color: #03543F;">100.00%</td></tr>
-                  <tr><td>Satellite</td><td>6.25%</td><td>3.12%</td><td style="font-weight: 700;">96.88%</td></tr>
-                  <tr><td>Swap</td><td>0.00%</td><td>3.12%</td><td style="font-weight: 700; color: #03543F;">100.00%</td></tr>
-                  <tr><td>Visitall</td><td>0.00%</td><td>18.75%</td><td style="font-weight: 700; color: #03543F;">100.00%</td></tr>
+                  <tr><td>Alfworld</td><td>8.33%</td><td>16.67%</td><td style="font-weight: 700;">69.44%</td></tr>
+                  <tr><td>Blocksworld</td><td>8.33%</td><td>16.67%</td><td style="font-weight: 700;">97.22%</td></tr>
+                  <tr><td>Depot</td><td>13.89%</td><td>13.89%</td><td style="font-weight: 700;">97.22%</td></tr>
+                  <tr><td>Ferry</td><td>11.11%</td><td>11.11%</td><td style="font-weight: 700; color: #03543F;">100.00%</td></tr>
+                  <tr><td>Floortile</td><td>11.11%</td><td>13.89%</td><td style="font-weight: 700; color: #03543F;">100.00%</td></tr>
+                  <tr><td>Frogs Jumping</td><td>8.33%</td><td>22.22%</td><td style="font-weight: 700; color: #03543F;">100.00%</td></tr>
+                  <tr><td>Goldminer</td><td>19.44%</td><td>16.67%</td><td style="font-weight: 700;">91.67%</td></tr>
+                  <tr><td>Grid</td><td>27.78%</td><td>16.67%</td><td style="font-weight: 700;">97.22%</td></tr>
+                  <tr><td>Grippers</td><td>25.00%</td><td>13.89%</td><td style="font-weight: 700; color: #03543F;">100.00%</td></tr>
+                  <tr><td>Hanoi</td><td>2.78%</td><td>25.00%</td><td style="font-weight: 700;">41.67%</td></tr>
+                  <tr><td>Logistics</td><td>8.33%</td><td>16.67%</td><td style="font-weight: 700;">94.44%</td></tr>
+                  <tr><td>Rovers</td><td>19.44%</td><td>11.11%</td><td style="font-weight: 700; color: #03543F;">100.00%</td></tr>
+                  <tr><td>Satellite</td><td>58.33%</td><td>13.89%</td><td style="font-weight: 700;">97.22%</td></tr>
+                  <tr><td>Swap</td><td>11.11%</td><td>13.89%</td><td style="font-weight: 700; color: #03543F;">100.00%</td></tr>
+                  <tr><td>Visitall</td><td>86.11%</td><td>13.89%</td><td style="font-weight: 700; color: #03543F;">100.00%</td></tr>
                   <tr class="highlight-row">
                     <td><strong>Plan Gen Overall</strong></td>
-                    <td>0.63%</td>
-                    <td>4.80%</td>
-                    <td><span class="badge-success">92.69%</span></td>
+                    <td>21.30%</td>
+                    <td>15.74%</td>
+                    <td><span class="badge-success">92.41%</span></td>
                   </tr>
                 </tbody>
               </table>
@@ -403,12 +398,12 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr><td>Trip Planning</td><td>84.60%</td><td>100.00%</td><td style="font-weight: 700; color: #03543F;">100.00%</td></tr>
-                  <tr><td>Meeting Planning</td><td>93.20%</td><td>97.33%</td><td style="font-weight: 700; color: #03543F;">100.00%</td></tr>
-                  <tr><td>Calendar Scheduling</td><td>80.51%</td><td>90.67%</td><td style="font-weight: 700; color: #03543F;">100.00%</td></tr>
+                  <tr><td>Trip Planning</td><td>84.67%</td><td>100.00%</td><td style="font-weight: 700; color: #03543F;">100.00%</td></tr>
+                  <tr><td>Meeting Planning</td><td>93.33%</td><td>97.33%</td><td style="font-weight: 700; color: #03543F;">100.00%</td></tr>
+                  <tr><td>Calendar Scheduling</td><td>80.67%</td><td>90.67%</td><td style="font-weight: 700; color: #03543F;">100.00%</td></tr>
                   <tr class="highlight-row">
                     <td><strong>NaturalPlan Overall</strong></td>
-                    <td>86.10%</td>
+                    <td>86.22%</td>
                     <td>96.00%</td>
                     <td><span class="badge-success">100.00%</span></td>
                   </tr>
@@ -439,13 +434,13 @@
                 <tbody>
                   <tr><td>3-sat</td><td>2.67%</td><td>100.00%</td><td style="font-weight: 700; color: #03543F;">100.00%</td></tr>
                   <tr><td>automorphism</td><td>6.67%</td><td>100.00%</td><td style="font-weight: 700; color: #03543F;">100.00%</td></tr>
-                  <tr><td>clique-coloring</td><td>0.00%</td><td>98.00%</td><td style="font-weight: 700; color: #03543F;">100.00%</td></tr>
+                  <tr><td>ca (cellular automata)</td><td>0.00%</td><td>98.00%</td><td style="font-weight: 700; color: #03543F;">100.00%</td></tr>
                   <tr><td>k-clique</td><td>22.67%</td><td>100.00%</td><td style="font-weight: 700; color: #03543F;">100.00%</td></tr>
                   <tr><td>k-colorability</td><td>78.67%</td><td>100.00%</td><td style="font-weight: 700; color: #03543F;">100.00%</td></tr>
-                  <tr><td>subgraph-isomorphism</td><td>4.00%</td><td>100.00%</td><td style="font-weight: 700; color: #03543F;">100.00%</td></tr>
+                  <tr><td>sr</td><td>4.00%</td><td>100.00%</td><td style="font-weight: 700; color: #03543F;">100.00%</td></tr>
                   <tr><td>k-domset</td><td>93.33%</td><td>99.33%</td><td style="font-weight: 700; color: #03543F;">100.00%</td></tr>
                   <tr><td>k-vertex-cover</td><td>62.67%</td><td>100.00%</td><td style="font-weight: 700; color: #03543F;">100.00%</td></tr>
-                  <tr><td>pigeonhole</td><td>2.67%</td><td>100.00%</td><td style="font-weight: 700; color: #03543F;">100.00%</td></tr>
+                  <tr><td>ps</td><td>2.67%</td><td>100.00%</td><td style="font-weight: 700; color: #03543F;">100.00%</td></tr>
                   <tr class="highlight-row">
                     <td><strong>StructureSAT Overall</strong></td>
                     <td>30.37%</td>
@@ -463,15 +458,15 @@
     <!-- Economic Efficiency & Cost Amortization -->
     <section class="section" id="economics">
       <div class="section-header">
-        <h2 class="section-title">Zero Marginal Test-Time Cost</h2>
-        <p class="section-desc">Flat $O(1)$ developer cost vs. linear $O(N)$ per-query LLM token costs</p>
+        <h2 class="section-title">Zero Marginal Test-Time API Cost</h2>
+        <p class="section-desc">One-time synthesis cost, with no additional test-time LLM API queries</p>
       </div>
 
       <div class="card">
         <div class="figure-container">
           <img src="assets/images/fig-planGen-cost graph.png" alt="Cumulative API Cost vs Evaluated Test Instances" class="figure-img">
           <p class="figure-caption">
-            <strong>Cost Amortization Curve.</strong> Cumulative API cost (USD) versus the number of evaluated test instances. PlanForge incurs a one-time development cost during the ABR phase and zero test-time API queries, so its total cost remains constant ($O(1)$). In contrast, CoT and SCOPE query the model for each instance, causing their costs to increase linearly ($O(N)$).
+            <strong>Cost Amortization Curve (Figure 3).</strong> Cumulative API cost (USD) versus evaluated test instances. PlanForge's LLM API cost remains fixed after synthesis, while CoT and SCOPE incur additional API costs per instance. As explained in Section 5.6, the figure uses the earlier Plan Gen Easy synthesis run ($17.24); the full Plan Gen synthesis cost is $16.77 (Tables 2 and 14). Local execution still requires compute.
           </p>
         </div>
       </div>
@@ -514,15 +509,15 @@
                   <tr>
                     <td rowspan="2" style="font-weight: 700;">Plan Gen</td>
                     <td>Plan-existence accuracy</td>
-                    <td>98.89%</td>
-                    <td>11.31%</td>
+                    <td>91.85%</td>
+                    <td>18.52%</td>
                     <td style="font-weight: 700;">98.89%</td>
                   </tr>
                   <tr>
                     <td>Plan-generation accuracy</td>
-                    <td>13.78%</td>
-                    <td>5.37%</td>
-                    <td><span class="badge-success">92.69%</span></td>
+                    <td>21.30%</td>
+                    <td>15.74%</td>
+                    <td><span class="badge-success">92.41%</span></td>
                   </tr>
                   <tr>
                     <td rowspan="2" style="font-weight: 700;">StructureSAT</td>
@@ -573,7 +568,7 @@
               </table>
             </div>
             <p style="margin-top: 12px; font-size: 0.85rem; color: var(--text-muted);">
-              Autonomous PlanForge discovers state-space representations without human blueprints, outperforming human-guided specifications across all 15 domains.
+              Autonomous PlanForge achieves 100.00% accuracy across all 15 domains on Plan Gen Easy, compared with 91.10% overall for Guided PlanForge. Table 7 reports improvements in seven domains and 100.00% accuracy for both settings in the other eight.
             </p>
           </div>
         </div>
@@ -596,11 +591,12 @@
               Copy BibTeX
             </button>
           </div>
-          <pre><code id="bibtex-content">@article{baskar2026planforge,
-  title     = {PlanForge: Synthesizing Planners from Natural Language with an LLM-Driven Architect--Builder--Runner Pipeline},
-  author    = {Baskar, Sarvesh and Bommireddy, Raviteja and Sharma, Saksham Kumar and Kokel, Harsha and Gaur, Manas and Katz, Michael and Sohrabi, Shirin and Srinivas, Kavitha},
-  journal   = {arXiv preprint},
-  year      = {2026}
+          <pre><code id="bibtex-content">@inproceedings{baskar2026planforge,
+  title     = {PlanForge: Synthesizing Planners from Natural Language with an {LLM}-Driven Architect--Builder--Runner Pipeline},
+  author    = {Sarvesh Baskar and Raviteja Bommireddy and Saksham Kumar Sharma and Harsha Kokel and Manas Gaur and Michael Katz and Shirin Sohrabi and Kavitha Srinivas},
+  booktitle = {COLM 2026 Workshop on Efficient Reasoning},
+  year      = {2026},
+  url       = {https://openreview.net/forum?id=Jx6FT7aaMZ}
 }</code></pre>
         </div>
       </div>
